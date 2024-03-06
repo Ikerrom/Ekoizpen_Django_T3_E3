@@ -22,7 +22,7 @@ def signup_view(request):
         'form': form,
         'error': error,
     }
-    return render(request, 'account/signup.html', context)
+    return render(request, 'nireaccount/signup.html', context)
 
 def login_view(request):
     error = False
@@ -43,7 +43,7 @@ def login_view(request):
         'form': form,
         'error': error,
     }
-    return render(request, 'account/login.html', context)
+    return render(request, 'nireaccount/login.html', context)
 
 def logout_view(request):
     if request.method == 'POST':

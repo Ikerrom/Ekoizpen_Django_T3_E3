@@ -54,10 +54,12 @@ def search_articles(request):
         query = request.POST.get('query')
         encoded_cookie = base64.b64encode(pickle.dumps(query)) #dumps pickle
         encoded_cookie = encoded_cookie.decode("utf-8")
-        if query:   
-            results = Article.objects.filter(Q(title__icontains=query)|Q(body__icontains=query))
+        sql = f"SELECT * FROM homepage_article;"
+        if query: 
+            sql = f"SELECT * FROM homepage_article WHERE title LIKE %s OR body LIKE %s;"
+            results = Article.objects.raw(sql, params=['%'+ query +'%','%'+ query +'%'])
         else:
-            results = Article.objects.all()
+            results = Article.objects.raw(sql)
     context = {
         'results':results,
     }
